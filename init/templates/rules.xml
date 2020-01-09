@@ -140,6 +140,8 @@
                 content="/html/head/style | /html/head/script"
                 theme-children="/html/head"
         />
+
+        <drop css:theme="[data-env='development']" />
         <drop theme="/html/body/script" />
 
         <!-- Custom favicon implementation does automatically add
@@ -172,12 +174,6 @@
         <!-- Logo (link target) -->
         <copy attributes="href" css:content="#portal-logo" css:theme="a.app-navbar-brand" />
         <copy attributes="href" css:content="#portal-logo" css:theme="a.app-brand" />
-
-        <!-- Logo switch -->
-        <drop css:theme="#logo-en"
-              if-not-path="/en"/>
-        <drop css:theme="#logo-de"
-              if-path="/en"/>
 
         <!-- Portal searchbox -->
         <copy attributes="*" css:content="#portal-searchbox form"
@@ -223,6 +219,7 @@
                 </li>
             </ol>
         </replace>
+
         <replace css:theme-children="#app-pathbar" css:content="#portal-breadcrumbs"
                  css:if-not-content=".section-startseite" />
 
@@ -307,7 +304,7 @@
         <drop attributes="align style" css:content="p" />
         <drop attributes="align style" css:content="ul" />
 
-        <rules css:if-not-content=".template-frontpage-view, .xsection-newsletter">
+        <rules css:if-not-content=".template-frontpage-view, .section-example-without-sidebar">
             <rules css:if-not-content="#portal-column-one">
                 <drop css:theme="#app-sidebar" />
                 <replace css:content-children="#content"
@@ -326,9 +323,6 @@
             </rules>
         </rules>
 
-        <!-- Drop cards -->
-        <drop css:if-content=".template-frontpage-view"
-              css:theme="#app-sidebar" />
 
         <!-- Alert and portal messages -->
         <strip css:content=".portalMessage dd"/>

@@ -1,0 +1,46 @@
+# Host names/IP addresses for local environment
+[hosts]
+# The public hostname used in virtual hosting, i.e. the public facing domain
+public          = web.{{ env.PROJECT_KEY }}.${traefik:domain}
+public1         = web.{{ env.PROJECT_KEY }}.${traefik:domain}
+private         = private.{{ env.PROJECT_KEY }}.${traefik:domain}
+static          = static.{{ env.PROJECT_KEY }}.${traefik:domain}
+
+[host-rewrites]
+public_prefix   = www.
+public_rewrite  =
+
+[http-auth]
+basic           = off
+basic_user_file = ${buildout:directory}/etc/.htpasswd
+
+[ssl]
+certificate = ${buildout:directory}/etc/fullchain.pem
+key = ${buildout:directory}/etc/privkey.
+
+[site]
+sitename = {{ env.PROJECT_KEY }}
+
+[plone-site]
+site-id = {{ env.PROJECT_KEY }}
+
+
+##########################
+# Development configuration
+###########################
+
+[instance-debug]
+zope-conf-additional =
+    <product-config beaker>
+    session.type            file
+    session.data_dir        ${buildout:directory}/var/sessions/data
+    session.lock_dir        ${buildout:directory}/var/sessions/lock
+    session.key             beaker.session.{{ env.PROJECT_KEY }}
+    session.secret          {{ env.PROJECT_SECRET }}-{{ env.PROJECT_KEY }}
+    </product-config>
+
+# Uncomment and configure to work on package translations
+# [i18nize-site]
+# domain = {{ env.PROJECT_KEY }}
+# packagepath = ${buildout:directory}/src/{{ env.PROJECT_KEY }}.site/{{ env.PROJECT_KEY }}/site
+# languages = de
