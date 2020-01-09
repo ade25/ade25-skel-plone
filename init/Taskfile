@@ -7,6 +7,7 @@ DEFAULT_PLONE_VERSION="5.2.1"
 PROJECT_NAME=""
 PROJECT_KEY=""
 PROJECT_YEAR=$(date +%Y)
+PROJECT_SECRET=`pwgen -s 32 1`
 
 PLONE_VERSION="INVALID_CHOICE"
 
@@ -47,18 +48,23 @@ echo:separator() {
 init:summary() {
     echo "Project name: $PROJECT_NAME"
     echo "Project key: $PROJECT_KEY"
+    echo "Project year: $PROJECT_YEAR"
+    echo "Project secret: $PROJECT_SECRET"
 }
 
 init:export-vars() {
     export PROJECT_NAME="$PROJECT_NAME"
     export PROJECT_KEY="$PROJECT_KEY"
     export PROJECT_YEAR="$PROJECT_YEAR"
+    export PROJECT_SECRET="$PROJECT_SECRET"
 }
 
 init:render:build() {
-    template:render templates/LICENSE.jinja2 ../LICENSE.yml
+    template:render templates/LICENSE.jinja2 ../LICENSE
     template:render templates/config.yml.jinja2 ../build/config.yml
     template:render templates/package.json.jinja2 ../build/gulp/package.json
+    template:render templates/development.cfg.jinja2 ${WEBROOT}/development.cfg
+    template:render templates/local.cfg.jinja2 ${WEBROOT}/local.cfg
     # Setup theme resource directory
     mkdir -p ${WEBROOT}/resources/theme/${PROJECT_KEY}.theme
     cp templates/rules.xml ${WEBROOT}/resources/theme/${PROJECT_KEY}.theme/

@@ -71,3 +71,5 @@ src/z3c.*
 src/zodbupdate
 var
 
+local.cfg
+
