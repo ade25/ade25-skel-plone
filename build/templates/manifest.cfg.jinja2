@@ -11,8 +11,8 @@ disabled-bundles =
 development-css =
 production-css =
 
-development-js = /++theme++{{ config.application.key }}.theme/scripts/app.js
-production-js = /++theme++{{ config.application.key }}.theme/scripts/app.js
+development-js = /++theme++{{ config.application.key }}.theme/scripts/app.umd.js
+production-js = /++theme++{{ config.application.key }}.theme/scripts/app.umd.js
 
 [theme:parameters]
 ajax_load = python: request.form.get('ajax_load')
