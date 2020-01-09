@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+# b5 Taskfile, see https://git.team23.de/build/b5 for details
+WEBROOT="../"
+
+DEFAULT_PLONE_VERSION="5.2.1"
+
+PROJECT_NAME=""
+PROJECT_KEY=""
+PROJECT_YEAR=$(date +%Y)
+
+PLONE_VERSION="INVALID_CHOICE"
+
+init:questions() {
+    # PROJECT NAME
+    while [ -z "$PROJECT_NAME" ]
+    do
+        read -e -p "Enter the project name: " PROJECT_NAME
+    done
+
+    # PROJECT KEY
+    while [ -z "$PROJECT_KEY" ]; do
+        read -e -p "Enter the project key (alphanumeric and hyphen, no leading or trailing hyphen): " PROJECT_KEY
+        case $PROJECT_KEY in
+            -* ) echo "Illegal Input, must not start with hyphen."; unset PROJECT_KEY;;
+            *- ) echo "Illegal Input, must not end with hyphen."; unset PROJECT_KEY;;
+            *[^a-zA-Z0-9-]* ) echo "Illegal input, only alphanumeric and - allowed.";unset PROJECT_KEY;;
+        esac
+    done
+
+    # PLONE VERSION
+    while [ -z "$PLONE_VERSION" ]; do
+        read -e -p "Enter the django version you want to use [$DEFAULT_PLONE_VERSION]: " PLONE_VERSION
+        if [ -z "$PLONE_VERSION" ]
+        then
+            PLONE_VERSION="$DEFAULT_PLONE_VERSION"
+        fi
+    done
+
+
+}
+
+echo:separator() {
+    echo
+    echo
+}
+
+init:summary() {
+    echo "Project name: $PROJECT_NAME"
+    echo "Project key: $PROJECT_KEY"
+}
+
+init:export-vars() {
+    export PROJECT_NAME="$PROJECT_NAME"
+    export PROJECT_KEY="$PROJECT_KEY"
+    export PROJECT_YEAR="$PROJECT_YEAR"
+}
+
+init:render:build() {
+    template:render templates/LICENSE.jinja2 ../LICENSE.yml
+    template:render templates/config.yml.jinja2 ../build/config.yml
+    template:render templates/package.json.jinja2 ../build/gulp/package.json
+    # Setup theme resource directory
+    mkdir -p ${WEBROOT}/resources/theme/${PROJECT_KEY}.theme
+    cp templates/rules.xml ${WEBROOT}/resources/theme/${PROJECT_KEY}.theme/
+}
+
+task:project:init() {
+    init:questions
+    echo:separator
+    init:summary
+    echo:separator
+    init:export-vars
+
+    init:render:build
+
+    echo:separator
+    echo "All done, have a good project time."
+
+}
