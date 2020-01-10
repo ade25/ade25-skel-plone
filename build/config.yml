@@ -1,12 +1,12 @@
 # This is the central configuration for all tools we use/execute. It is parsed inside
 # the Taskfile, too. See $CONFIG_application_web_path for example.
-version: {{ meta.version }}
+version: 1.1.4
 project:
-  name: {{ env.PROJECT_NAME }}
-    key: {{ env.PROJECT_KEY }}
-    url: http://www.doesnotexistyet.com/
+  name: ADK
+  key: adk
+  url: http://www.doesnotexistyet.com/
 application:
-  key: {{ env.PROJECT_KEY }}
+  key: adk
   styles:
     src:
       - rfs/scss/_rfs.scss
@@ -25,7 +25,7 @@ application:
       - x-ray/dist/js/x-ray.js
     app:
       - scripts/accordion.js
-      - scripts/app.js
+      - scripts/app.umd.js
       - scripts/collapsible.js
       - scripts/navbar.js
       - scripts/paneleditor.js
@@ -37,13 +37,13 @@ paths:
   db: ../_db
   docker_data: ../_docker_data
   site_theme: ../theme
-  site_theme_dist: ../resources/theme/{{ env.PROJECT_KEY }}.theme
+  site_theme_dist: ../resources/theme/adk.theme
   gulp_location: ../build/gulp
   theme_app: ../../theme/
-  theme_base: ../../resources/theme/{{ env.PROJECT_KEY }}.theme/
+  theme_base: ../../resources/theme/adk.theme/
   theme_dev: ../../theme/_site/
-  theme_dist: ../../resources/theme{{ env.PROJECT_KEY }}.theme/
-  theme_diazo: /++theme++{{ env.PROJECT_KEY }}.theme/
+  theme_dist: ../../resources/themeadk.theme/
+  theme_diazo: /++theme++adk.theme/
   theme_src: node_modules/
   theme_theme: ../../theme/
 modules:

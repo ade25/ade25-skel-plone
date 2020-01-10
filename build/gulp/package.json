@@ -1,8 +1,8 @@
 {
-    "name": "meetshaus",
-    "description": "Theme and frontend for meetshaus",
+    "name": "adk",
+    "description": "Theme for ADK",
     "version": "1.0.0",
-    "homepage": "https://meetshaus.de",
+    "homepage": "http://www.doesnotexistyet.com/",
     "author": "Christoph Boehner-Figas",
     "keywords": [
         "diazo",
@@ -12,7 +12,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/potzenheimer/meetshaus.git"
+        "url": "https://github.com/ade25adk.git"
     },
     "license": "MIT",
     "devDependencies": {
