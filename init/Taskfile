@@ -63,7 +63,6 @@ init:render:build() {
     template:render templates/LICENSE.jinja2 ../LICENSE
     template:render templates/config.yml.jinja2 ../build/config.yml
     template:render templates/package.json.jinja2 ../build/gulp/package.json
-    template:render templates/rules.xml.jinja2 ../build/gulp/package.json
     template:render templates/development.cfg.jinja2 ${WEBROOT}/development.cfg
     template:render templates/local.cfg.jinja2 ${WEBROOT}/local.cfg
     # Setup theme resource directory
@@ -79,6 +78,8 @@ task:project:init() {
     init:export-vars
 
     init:render:build
+
+    b5 install
 
     echo:separator
     echo "All done - enjoy the project."
