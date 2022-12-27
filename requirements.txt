@@ -1,4 +1,4 @@
 Fabric==1.14.0
-setuptools==41.6.0
+setuptools==65.5.1
 towncrier==19.2.0
 zc.buildout==2.13.2
